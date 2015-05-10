@@ -1,0 +1,30 @@
+{
+  "name": "mellon",
+  "version": "1.0.0",
+  "description": "A client for the MUD MUME (Multi-Users in Middle Earth) built on Express 4 and Socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cschwebk/mellon"
+  },
+  "author": "Cody Schwebke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cschwebk/mellon/issues"
+  },
+  "homepage": "https://github.com/cschwebk/mellon",
+  "dependencies": {
+    "browserify": "^10.1.3",
+    "browserify-middleware": "^5.0.2",
+    "ejs": "^2.3.1",
+    "express": "^4.12.3",
+    "morgan": "^1.5.2",
+    "react": "^0.13.3",
+    "reactify": "^1.1.0",
+    "socket.io": "^1.3.5",
+    "watchify": "^3.2.1"
+  }
+}
