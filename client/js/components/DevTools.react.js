@@ -13,10 +13,14 @@ var DevTools = React.createClass({
         var autoText = (this.state.autoEnabled) ? 'Stop Auto-Simulate' : 'Enable Auto-Simulate';
         return (
             <div className="devTools">
+                <button onClick={this.connect}>Connect</button>
                 <button onClick={this.simulateMessage}>Simulate Message</button>
                 <button onClick={this.setAuto}>{autoText}</button>
             </div>
         );
+    },
+    connect: function() {
+        MessageActionCreators.sendCommand('connect');
     },
     simulateMessage: function() {
         MessageActionCreators.receiveMessage(Math.random(0,1) * 10);
