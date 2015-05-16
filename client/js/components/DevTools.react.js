@@ -1,14 +1,31 @@
 var React = require('react'),
-    MessageActionCreators = require('../actions/MessageActionCreators');
+    assign = require('object-assign');
+    ApplicationStore = require('../stores/ApplicationStore.react'),
+    MessageActionCreators = require('../actions/MessageActionCreators'),
+    ApplicationActionCreators = require('../actions/ApplicationActionCreators');
 
 var timer = null;
 
+function getStateFromStores() {
+    return ApplicationStore.getState();
+}
+
 var DevTools = React.createClass({
     getInitialState: function() {
-        return {
-            autoEnabled: false,
-            connected: false
+        var applicationState = {
+            autoEnabled: false
         };
+
+        return assign(applicationState, getStateFromStores());
+    },
+    componentDidMount: function() {
+        ApplicationStore.addChangeListener(this.onChange);
+    },
+    componentWillUnmount: function() {
+        ApplicationStore.removeListener(this.onChange);
+    },
+    onChange: function() {
+        this.setState(assign(this.state, getStateFromStores()));
     },
     render: function() {
         var autoText = (this.state.autoEnabled) ? 'Stop Auto-Simulate' : 'Enable Auto-Simulate',
@@ -23,14 +40,14 @@ var DevTools = React.createClass({
     },
     connect: function() {
         if (this.state.connected) {
-            this.setState({
+            MessageActionCreators.sendCommand('zap');
+            ApplicationActionCreators.updateState({
                 connected: false
             });
-            MessageActionCreators.sendCommand('zap');
             return;
         }
 
-        this.setState({
+        ApplicationActionCreators.updateState({
             connected: true
         });
         MessageActionCreators.sendCommand('connect');

@@ -1,10 +1,13 @@
 var express = require('express'),
     net = require('net'),
+    mud = require('./lib/mud'),
     config = require('./config/config'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
 	logger = require('morgan');
+
+var DEBUG = true;
 
 app.use(express.static('dist'));
 app.use(logger('dev'));
@@ -19,41 +22,23 @@ server.listen('3000', function (err) {
 	console.log('express server listening on port 3000');
 });
 
-var mudSocket = null;
-
-function connectToMud(socket) {
-    mudSocket = net.connect(config, function(err) {
-        console.log(socket.id + ' connected to remote server ' + config.host + ':' + config.port)
-    });
-
-    mudSocket.setEncoding('utf8');
-
-    mudSocket.on('data', function(data) {
-        console.log(data);
-        socket.emit('message', {
-            content: data
-        });
-    });
-
-    mudSocket.on('end', function() {
-        console.log('closed connection to remote server');
-    })
-}
-
 io.on('connection', function(socket) {
+    var mudSocket = null;
     socket.on('command', function(command) {
+        if (DEBUG) {
+            console.log('command: ' + command);
+        }
+
         switch (command) {
             case 'connect':
                 if (!mudSocket) {
-                    connectToMud(socket);
+                    mudSocket = mud(config, socket, DEBUG);
                 }
             break;
             case 'zap':
                 if (mudSocket) {
                     mudSocket.end();
-                    socket.emit('message', {
-                        content: 'connection to mud closed'
-                    });
+                    mudSocket = null;
                 }
             break;
             default:
@@ -63,14 +48,19 @@ io.on('connection', function(socket) {
     });
 
     socket.on('message', function(message) {
-        console.log('message: ' + JSON.stringify(message));
+        if (DEBUG) {
+            console.log('message: ' + JSON.stringify(message));
+        }
+
         if (!mudSocket) {
             socket.emit('message', {
-                content: 'not connected to mud!'
+                type: 'system',
+                content: 'Not connected to MUD'
             });
             return;
         }
 
-        console.log(mudSocket.write(message.content + '\r\n'));
+        //telnet protocol requires each message to end with a new line
+        mudSocket.write(message.content + '\r\n');
     })
 });

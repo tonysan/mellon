@@ -12,7 +12,14 @@ function validSocket() {
 function setupConnection() {
     socket = io.connect();
     socket.on('message', function(message) {
-        receiveMessage(message.content);
+        receiveMessage(message);
+    });
+
+    socket.on('update', function(updatedState) {
+        MellonDispatcher.dispatch({
+            type: ActionTypes.UPDATE_STATE,
+            state: updatedState
+        });
     });
 }
 
@@ -26,27 +33,25 @@ function sendCommand(command) {
 
 function sendMessage(content) {
     if (!validSocket()) {
-        MellonDispatcher.dispatch({
-            type: ActionTypes.RECEIVE_MESSAGE,
-            message: utils.createMessage('system', 'Remote connection not established')
-        });
+        receiveMessage({
+            type: 'system',
+            content: 'Remote connection not established'
+        })
         return;
     }
 
-    MellonDispatcher.dispatch({
-        type: ActionTypes.RECEIVE_MESSAGE,
-        message: utils.createMessage('echo', content)
-    });
-
-    socket.emit('message', {
+    receiveMessage({
+        type: 'echo',
         content: content
     });
+
+    socket.emit('message', content);
 }
 
-function receiveMessage(content) {
+function receiveMessage(message) {
     MellonDispatcher.dispatch({
         type: ActionTypes.RECEIVE_MESSAGE,
-        message: utils.createMessage('incoming', content)
+        message: utils.createMessage(message.type, message.content)
     });
 }
 
