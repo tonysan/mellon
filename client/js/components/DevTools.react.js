@@ -6,20 +6,33 @@ var timer = null;
 var DevTools = React.createClass({
     getInitialState: function() {
         return {
-            autoEnabled: false
+            autoEnabled: false,
+            connected: false
         };
     },
     render: function() {
-        var autoText = (this.state.autoEnabled) ? 'Stop Auto-Simulate' : 'Enable Auto-Simulate';
+        var autoText = (this.state.autoEnabled) ? 'Stop Auto-Simulate' : 'Enable Auto-Simulate',
+            connectText = (this.state.connected) ? 'Disconnect' : 'Connect';
         return (
             <div className="devTools">
-                <button onClick={this.connect}>Connect</button>
+                <button onClick={this.connect}>{connectText}</button>
                 <button onClick={this.simulateMessage}>Simulate Message</button>
                 <button onClick={this.setAuto}>{autoText}</button>
             </div>
         );
     },
     connect: function() {
+        if (this.state.connected) {
+            this.setState({
+                connected: false
+            });
+            MessageActionCreators.sendCommand('zap');
+            return;
+        }
+
+        this.setState({
+            connected: true
+        });
         MessageActionCreators.sendCommand('connect');
     },
     simulateMessage: function() {
