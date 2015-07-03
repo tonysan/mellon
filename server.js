@@ -22,8 +22,9 @@ server.listen('3000', function (err) {
 	console.log('express server listening on port 3000');
 });
 
+var mudSocket = null;
+
 io.on('connection', function(socket) {
-    var mudSocket = null;
     socket.on('command', function(command) {
         if (DEBUG) {
             console.log('command: ' + command);
@@ -32,7 +33,9 @@ io.on('connection', function(socket) {
         switch (command) {
             case 'connect':
                 if (!mudSocket) {
-                    mudSocket = mud(config, socket, DEBUG);
+                    mudSocket = mud.connectToMud(config, socket, DEBUG);
+                } else {
+                    mud.reconnectWebSocket(socket);
                 }
             break;
             case 'zap':
