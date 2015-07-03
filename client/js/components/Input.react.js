@@ -26,7 +26,7 @@ var Input = React.createClass({
         });
     },
     handleKeyPress: function(e) {
-        if (e.key === 'Enter' && e.target.value !== '') {
+        if (e.key === 'Enter') {
             e.preventDefault();
             MessageActionCreators.sendMessage(e.target.value)
             this.setState({

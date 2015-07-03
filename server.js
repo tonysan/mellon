@@ -61,6 +61,6 @@ io.on('connection', function(socket) {
         }
 
         //telnet protocol requires each message to end with a new line
-        mudSocket.write(message.content + '\r\n');
+        mudSocket.write(message + '\r\n');
     })
 });
