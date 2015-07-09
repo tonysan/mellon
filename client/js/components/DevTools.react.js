@@ -6,6 +6,8 @@ var React = require('react'),
 
 var timer = null;
 
+var tempMessage = "Perception: vision [32;1;107m50[0m, hearing [4;32m-10[0m, smell [32;5m-25[0m. Alertness: [9;32mnormal[0m.";
+
 function getStateFromStores() {
     return ApplicationStore.getState();
 }
@@ -53,7 +55,11 @@ var DevTools = React.createClass({
         MessageActionCreators.sendCommand('connect');
     },
     simulateMessage: function() {
-        MessageActionCreators.receiveMessage(Math.random(0,1) * 10);
+        MessageActionCreators.receiveMessage({
+            type: 'remote',
+            // content: Math.random(0,1) * 10
+            content: tempMessage
+        });
     },
     setAuto: function() {
         if (!timer) {

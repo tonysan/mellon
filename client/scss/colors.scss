@@ -1,0 +1,94 @@
+.bold {
+    font-weight: 700;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.blink {
+  animation: blink 1s steps(5, start) infinite;
+  -webkit-animation: blink 1s steps(5, start) infinite;
+}
+@keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+@-webkit-keyframes blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+.inverse {
+    //probably wont implement
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.fore_black, .fore_bright_black {
+    color: #272822;
+}
+
+.fore_red, .fore_bright_red {
+    color: #F92672;
+}
+
+.fore_green, .fore_bright_green {
+    color: #A6E22E;
+}
+
+.fore_yellow, .fore_bright_yellow {
+    color: #E6DB74;
+}
+
+.fore_blue, .fore_bright_blue {
+    color: #FD971F;
+}
+
+.fore_magenta, .fore_bright_magenta {
+    color: #AE81FF;
+}
+
+.fore_cyan, .fore_bright_cyan {
+    color: #66D9EF;
+}
+
+.fore_white, .fore_bright_white {
+    color: #F8F8F0;
+}
+
+.back_black, .back_bright_black {
+    background-color: #272822;
+}
+
+.back_red, .back_bright_red {
+    background-color: #F92672;
+}
+
+.back_green, .back_bright_green {
+    background-color: #A6E22E;
+}
+
+.back_yellow, .back_bright_yellow {
+    background-color: #E6DB74;
+}
+
+.back_blue, .back_bright_blue {
+    background-color: #FD971F;
+}
+
+.back_magenta, .back_bright_magenta {
+    background-color: #AE81FF;
+}
+
+.back_cyan, .back_bright_cyan {
+    background-color: #66D9EF;
+}
+
+.back_white, .back_bright_white {
+    background-color: #F8F8F0;
+}

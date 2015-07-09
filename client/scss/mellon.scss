@@ -1,3 +1,6 @@
+$systemMessageColor: #CCCCCC;
+@import 'colors';
+
 body {
     box-sizing: border-box;
 
@@ -17,12 +20,16 @@ body {
             font-size: 14px;
             line-height: 18px;
             white-space: pre-wrap;
-            color: #dddddd;
-            background-color: rgb(45,45,45);
+            color: #F8F8F0;
+            background-color: #272822;
             cursor: default;
             box-sizing: border-box;
             padding: 0 0 0 5px;
             margin-bottom: 0;
+
+            li:not(:first-child) {
+                margin-top: 5px;
+            }
         }
     }
 
@@ -35,7 +42,7 @@ body {
         // background: #1a1a1a;
         background-color: rgb(45,45,45);
 
-           input {
+        input {
             &:focus {
                 outline: none;
             }
@@ -53,6 +60,23 @@ body {
             box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.30);
             -moz-box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.30);
             -webkit-box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.30);
+        }
+    }
+
+    .system, .echo {
+        span {
+            color: $systemMessageColor;
+            font: {
+                weight: 200;
+                style: italic;
+            }
+        }
+
+    }
+
+    .system {
+        span:beback {
+            content: '# ';
         }
     }
 }
