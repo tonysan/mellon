@@ -29,9 +29,9 @@ var ViewScreen = React.createClass({
         var messages = this.state.messages.map(getMessage);
 		return (
 			<div className='viewScreen'>
-                <ul className='messageList' ref='messageList'>
+                <div className='messageList' ref='messageList'>
                     {messages}
-                </ul>
+                </div>
 			</div>
 		);
 	},
@@ -39,8 +39,8 @@ var ViewScreen = React.createClass({
         this.scrollToBottom();
     },
     scrollToBottom: function() {
-        var ul = this.refs.messageList.getDOMNode();
-        ul.scrollTop = ul.scrollHeight;
+        var div = this.refs.messageList.getDOMNode();
+        div.scrollTop = div.scrollHeight;
     },
     onChange: function() {
         this.setState(getStateFromStores());

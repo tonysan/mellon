@@ -16,10 +16,20 @@ function setupConnection() {
     });
 
     socket.on('update', function(updatedState) {
-        MellonDispatcher.dispatch({
-            type: ActionTypes.UPDATE_STATE,
-            state: updatedState
-        });
+        switch(updatedState.type) {
+            case 'character':
+                MellonDispatcher.dispatch({
+                    type: ActionTypes.UPDATE_CHARACTER,
+                    state: updatedState
+                });
+            break;
+            case 'app':
+                MellonDispatcher.dispatch({
+                    type: ActionTypes.UPDATE_STATE,
+                    state: updatedState
+                });
+            break;
+        }
     });
 }
 
@@ -40,10 +50,10 @@ function sendMessage(content) {
         return;
     }
 
-    receiveMessage({
-        type: 'echo',
-        content: content
-    });
+    // receiveMessage({
+    //     type: 'echo',
+    //     content: content + '\r\n'
+    // });
 
     socket.emit('message', content);
 }

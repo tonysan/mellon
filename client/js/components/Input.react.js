@@ -2,6 +2,7 @@ var React = require('react'),
     MessageActionCreators = require('../actions/MessageActionCreators');
 
 var KEYCODES = {
+    Escape: 27,
     ArrowUp: 38,
     ArrowDown: 40,
     No1: 97,
@@ -41,6 +42,11 @@ var Input = React.createClass({
     },
     handleKeyUp: function(e) {
         switch (e.keyCode) {
+            case KEYCODES.Escape:
+                this.setState({
+                    inputValue: ''
+                });
+                break;
             case KEYCODES.ArrowUp:
                 if (this.historyPointer > 0) {
                     this.historyPointer -= 1;
@@ -85,8 +91,10 @@ var Input = React.createClass({
         switch (e.key) {
             case 'Enter':
                 e.preventDefault();
-                MessageActionCreators.sendMessage(e.target.value)
-                this.history.push(e.target.value);
+                MessageActionCreators.sendMessage(e.target.value);
+                if (e.target.value !== '') {
+                    this.history.push(e.target.value);
+                }
                 this.historyPointer = this.history.length;
                 this.setState({
                     inputValue: ''

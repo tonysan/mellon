@@ -1,20 +1,23 @@
 var React = require('react'),
     ansiDict = require('../utils/ansiDictionary'),
     UUID = require('uuid'),
+    PureRenderMixin = require('react/addons').addons.PureRenderMixin,
     ReactPropTypes = React.PropTypes;
 
 var Message = React.createClass({
+    mixins: [PureRenderMixin],
     propTypes: {
         message: ReactPropTypes.object
+    },
+    shouldUpdate: function() {
+
     },
     render: function() {
         var message  = this.props.message,
             text = this.colorizeMessage(message.content);
 
         return (
-            <li key={message.key} className={message.type}>
-                {text}
-            </li>
+            <span key={message.key} className={message.type}>{text}</span>
         );
     },
     colorizeMessage: function(text) {
