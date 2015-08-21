@@ -2,11 +2,12 @@ var React = require('react'),
     assign = require('object-assign');
     ApplicationStore = require('../stores/ApplicationStore.react'),
     MessageActionCreators = require('../actions/MessageActionCreators'),
-    ApplicationActionCreators = require('../actions/ApplicationActionCreators');
-
-var timer = null;
-
-var tempMessage = "Perception: vision [32;1;107m50[0m, hearing [4;32m-10[0m, smell [32;5m-25[0m. Alertness: [9;32mnormal[0m.";
+    ApplicationActionCreators = require('../actions/ApplicationActionCreators'),
+    Navbar = require('react-bootstrap').Navbar,
+    Nav = require('react-bootstrap').Nav,
+    DropdownButton = require('react-bootstrap').DropdownButton,
+    NavItem = require('react-bootstrap').NavItem,
+    MenuItem = require('react-bootstrap').MenuItem;
 
 function getStateFromStores() {
     return ApplicationStore.getState();
@@ -32,12 +33,21 @@ var DevTools = React.createClass({
     render: function() {
         var autoText = (this.state.autoEnabled) ? 'Stop Auto-Simulate' : 'Enable Auto-Simulate',
             connectText = (this.state.connected) ? 'Disconnect' : 'Connect';
+
         return (
-            <div className="devTools">
-                <button onClick={this.connect}>{connectText}</button>
-                <button onClick={this.simulateMessage}>Simulate Message</button>
-                <button onClick={this.setAuto}>{autoText}</button>
-            </div>
+            <Navbar brand='Mellon' className="mellon-nav">
+                <Nav>
+                    <NavItem eventKey={1} href='#' onClick={this.connect}>{connectText}</NavItem>
+                </Nav>
+                <Nav right>
+                    <DropdownButton eventKey={2} title='Options'>
+                        <MenuItem eventKey='1'>Aliases</MenuItem>
+                        <MenuItem eventKey='2'>Triggers</MenuItem>
+                        <MenuItem divider />
+                        <MenuItem eventKey='3'>Settings</MenuItem>
+                    </DropdownButton>
+                </Nav>
+            </Navbar>
         );
     },
     connect: function() {
@@ -53,30 +63,6 @@ var DevTools = React.createClass({
             connected: true
         });
         MessageActionCreators.sendCommand('connect');
-    },
-    simulateMessage: function() {
-        MessageActionCreators.receiveMessage({
-            type: 'remote',
-            // content: Math.random(0,1) * 10
-            content: tempMessage
-        });
-    },
-    setAuto: function() {
-        if (!timer) {
-            this.setState({
-                autoEnabled: true
-            });
-            timer = window.setInterval(function() {
-                this.simulateMessage();
-            }.bind(this), 200);
-            return;
-        }
-
-        this.setState({
-            autoEnabled: false
-        });
-        window.clearInterval(timer);
-        timer = null;
     }
 });
 

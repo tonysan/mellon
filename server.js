@@ -1,12 +1,13 @@
 var express = require('express'),
     net = require('net'),
     mud = require('./lib/mud'),
-    alias = require('./lib/alias'),
-    trigger = require('./lib/trigger'),
+    aliases = require('./config/aliases'),
+    triggers = require('./config/triggers'),
     config = require('./config/config'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
+    exphbs = require('express-handlebars'),
 	logger = require('morgan');
 
 var DEBUG = true;
@@ -14,10 +15,15 @@ var DEBUG = true;
 app.use(express.static('dist'));
 app.use(logger('dev'));
 
-app.set('view engine', 'ejs');
+app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
 app.get('/', function (req, res) {
-	res.render('index');
+	res.render('index', {
+        aliases: JSON.stringify(aliases),
+        triggers: JSON.stringify(triggers),
+        config: JSON.stringify(config)
+    });
 });
 
 server.listen('3000', function (err) {
@@ -103,5 +109,5 @@ io.on('connection', function(socket) {
                 mudSocket.write(command + '\r\n');
             });
         }
-    })
+    });
 });

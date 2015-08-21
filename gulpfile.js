@@ -34,7 +34,8 @@ function bundle() {
 
 gulp.task('clean', function(callback) {
     del([
-        'dist/**/*'
+        'dist/js/*',
+        'dist/css/*'
     ], callback);
 });
 
