@@ -1,23 +1,25 @@
 var React = require('react'),
     assign = require('object-assign');
     ApplicationStore = require('../stores/ApplicationStore.react'),
+    AliasStore = require('../stores/AliasStore.react'),
     MessageActionCreators = require('../actions/MessageActionCreators'),
+    AliasActionCreators = require('../actions/AliasActionCreators'),
     ApplicationActionCreators = require('../actions/ApplicationActionCreators'),
-    Navbar = require('react-bootstrap').Navbar,
-    Nav = require('react-bootstrap').Nav,
-    DropdownButton = require('react-bootstrap').DropdownButton,
-    NavItem = require('react-bootstrap').NavItem,
-    MenuItem = require('react-bootstrap').MenuItem;
+    bootstrap = require('react-bootstrap'),
+    ModalInput = require('./ModalInput.react');
+
+var Navbar = bootstrap.Navbar,
+    Nav = bootstrap.Nav,
+    DropdownButton = bootstrap.DropdownButton,
+    NavItem = bootstrap.NavItem;
 
 function getStateFromStores() {
     return ApplicationStore.getState();
 }
 
-var DevTools = React.createClass({
+var Menu = React.createClass({
     getInitialState: function() {
-        var applicationState = {
-            autoEnabled: false
-        };
+        var applicationState = {};
 
         return assign(applicationState, getStateFromStores());
     },
@@ -31,21 +33,17 @@ var DevTools = React.createClass({
         this.setState(assign(this.state, getStateFromStores()));
     },
     render: function() {
-        var autoText = (this.state.autoEnabled) ? 'Stop Auto-Simulate' : 'Enable Auto-Simulate',
-            connectText = (this.state.connected) ? 'Disconnect' : 'Connect';
+        var connectText = (this.state.connected) ? 'Disconnect' : 'Connect';
 
         return (
             <Navbar brand='Mellon' className="mellon-nav">
                 <Nav>
-                    <NavItem eventKey={1} href='#' onClick={this.connect}>{connectText}</NavItem>
+                    <NavItem onClick={this.connect}>{connectText}</NavItem>
                 </Nav>
                 <Nav right>
-                    <DropdownButton eventKey={2} title='Options'>
-                        <MenuItem eventKey='1'>Aliases</MenuItem>
-                        <MenuItem eventKey='2'>Triggers</MenuItem>
-                        <MenuItem divider />
-                        <MenuItem eventKey='3'>Settings</MenuItem>
-                    </DropdownButton>
+                    <ModalInput store={AliasStore} actionCreator={AliasActionCreators} title='Aliases'/>
+                    <ModalInput store={AliasStore} actionCreator={AliasActionCreators} title='Triggers'/>
+                    <ModalInput store={AliasStore} actionCreator={AliasActionCreators} title='Settings'/>
                 </Nav>
             </Navbar>
         );
@@ -66,4 +64,4 @@ var DevTools = React.createClass({
     }
 });
 
-module.exports = DevTools;
+module.exports = Menu;

@@ -6,6 +6,7 @@ module.exports = {
         SEND_MESSAGE: null,
         RECEIVE_MESSAGE: null,
         UPDATE_STATE: null,
-        UPDATE_CHARACTER: null
+        UPDATE_CHARACTER: null,
+        UPDATE_ALIASES: null
     })
 };

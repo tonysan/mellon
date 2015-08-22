@@ -38,6 +38,13 @@ function sendCommand(command) {
         setupConnection();
     }
 
+    if (typeof command === 'string') {
+        return socket.emit('command', {
+            command: command,
+            payload: null
+        });
+    }
+
     socket.emit('command', command);
 }
 
@@ -46,14 +53,9 @@ function sendMessage(content) {
         receiveMessage({
             type: 'system',
             content: 'Remote connection not established'
-        })
+        });
         return;
     }
-
-    // receiveMessage({
-    //     type: 'echo',
-    //     content: content + '\r\n'
-    // });
 
     socket.emit('message', content);
 }

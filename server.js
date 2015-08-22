@@ -1,5 +1,6 @@
 var express = require('express'),
     net = require('net'),
+    fs = require('fs'),
     mud = require('./lib/mud'),
     aliases = require('./config/aliases'),
     triggers = require('./config/triggers'),
@@ -41,10 +42,11 @@ io.on('connection', function(socket) {
     var mudSocket = null;
     socket.on('command', function(command) {
         if (DEBUG) {
-            console.log('command: ' + command);
+            console.log('command:', command.command);
+            console.log('payload:', command.payload);
         }
 
-        switch (command) {
+        switch (command.command) {
             case 'connect':
                 if (!mudSocket) {
                     mudSocket = mud.connectToMud(config, socket, DEBUG);
@@ -55,6 +57,9 @@ io.on('connection', function(socket) {
                     mudSocket.end();
                     mudSocket = null;
                 }
+            break;
+            case 'update_aliases':
+                fs.writeFileSync('config/aliases.json', JSON.stringify(command.payload, null, 2), 'utf8');
             break;
             default:
                 //noop

@@ -1,5 +1,4 @@
 {
-  "hi": "emote hi",
   "oe": "open exit",
   "co": "call open",
   "so": "say open",
@@ -8,5 +7,7 @@
   "ds": "drink skin",
   "ce": "close exit",
   "gbp": "get bannock pack",
-  "eb": "eat bannock"
+  "eb": "eat bannock",
+  "hi": "emote hi",
+  "b": "bash"
 }
