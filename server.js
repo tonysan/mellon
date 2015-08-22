@@ -61,6 +61,13 @@ io.on('connection', function(socket) {
             case 'update_aliases':
                 fs.writeFileSync('config/aliases.json', JSON.stringify(command.payload, null, 2), 'utf8');
             break;
+            case 'update_triggers':
+                fs.writeFileSync('config/triggers.json', JSON.stringify(command.payload, null, 2), 'utf8');
+            break;
+            case 'update_config':
+                fs.writeFileSync('config/config.json', JSON.stringify(command.payload, null, 2), 'utf8');
+                config = JSON.parse(fs.readFileSync('config/config.json', 'utf8'));
+            break;
             default:
                 //noop
             break;
@@ -80,39 +87,7 @@ io.on('connection', function(socket) {
             return;
         }
 
-        // identify and parse aliases
-        var delimiter = ';';
-        if (message[0] === delimiter) {
-            if (message.match(/^;alias add/i)) {
-                alias.add(message);
-                writeMessageToClient(socket, 'echo', message);
-            } else if (message.match(/^;alias ls/i)) {
-                writeMessageToClient(socket, 'system', JSON.stringify(alias.ls()));
-            } else if (message.match(/^;alias rm/i)) {
-                alias.rm(message);
-                writeMessageToClient(socket, 'echo', message);
-            } else if (message.match(/^;trigger add/i)) {
-                trigger.add(message);
-                writeMessageToClient(socket, 'echo', message);
-            } else if (message.match(/^;trigger ls/i)) {
-                writeMessageToClient(socket, 'system', JSON.stringify(trigger.ls()));
-            } else if (message.match(/^;trigger rm/i)) {
-                trigger.rm(message);
-                writeMessageToClient(socket, 'echo', message);
-            } else {
-                writeMessageToClient(socket, 'system', 'Bad system command');
-            return;
-            }
-        } else {
-            var replaced = alias.replace(message),
-                splitCommands = replaced.split(';');
-
-            splitCommands.forEach(function(command) {
-                writeMessageToClient(socket, 'echo', command);
-
-                //telnet protocol requires each message to end with a new line
-                mudSocket.write(command + '\r\n');
-            });
-        }
+        //telnet protocol requires each message to end with a new line
+        mudSocket.write(message + '\r\n');
     });
 });
