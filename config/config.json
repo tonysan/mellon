@@ -1,5 +1,5 @@
 {
-  "host": "mume.org",
+  "host": "localhost",
   "port": 4242,
   "telnet": true
 }

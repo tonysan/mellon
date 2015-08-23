@@ -9,5 +9,10 @@
   "gbp": "get bannock pack",
   "eb": "eat bannock",
   "hi": "emote hi",
-  "b": "bash"
+  "b": "bash",
+  "cmw": "cha moo wimp",
+  "cma": "cha moo agg",
+  "liq": "look in quiver",
+  "db": "draw bow",
+  "dd": "draw dirk"
 }

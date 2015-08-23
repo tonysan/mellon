@@ -14,11 +14,18 @@ function validSocket() {
 function setupConnection() {
     socket = io.connect();
     socket.on('message', function(message) {
-        // message.content
         var triggers = TriggerStore.getAll(),
             content = message.content;
 
         Object.keys(triggers).forEach(function(trigger) {
+            if (content.match('#client')) {
+                MellonDispatcher.dispatch({
+                    type: ActionTypes.UPDATE_CHARACTER,
+                    state: content
+                });
+                return;
+            }
+
             if (content.match(trigger)) {
                 sendMessage(triggers[trigger]);
             }
@@ -29,12 +36,6 @@ function setupConnection() {
 
     socket.on('update', function(updatedState) {
         switch(updatedState.type) {
-            case 'character':
-                MellonDispatcher.dispatch({
-                    type: ActionTypes.UPDATE_CHARACTER,
-                    state: updatedState
-                });
-            break;
             case 'app':
                 MellonDispatcher.dispatch({
                     type: ActionTypes.UPDATE_STATE,
@@ -70,13 +71,8 @@ function sendMessage(content) {
     }
 
     var aliases = AliasStore.getAll();
-    Object.keys(aliases).some(function(alias) {
-        if (alias === content) {
-            content = aliases[alias];
-            return true;
-        }
-
-        return false;
+    Object.keys(aliases).forEach(function(alias) {
+        content = content.replace(new RegExp('^' + alias), aliases[alias]);
     });
 
     receiveMessage({
