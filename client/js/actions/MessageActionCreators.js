@@ -1,5 +1,7 @@
 var MellonDispatcher = require('../dispatcher/MellonDispatcher'),
     MellonConstants = require('../constants/MellonConstants'),
+    AliasStore = require('../stores/AliasStore.react'),
+    TriggerStore = require('../stores/TriggerStore.react'),
     utils = require('../utils/utils');
 
 var ActionTypes = MellonConstants.ActionTypes,
@@ -12,6 +14,16 @@ function validSocket() {
 function setupConnection() {
     socket = io.connect();
     socket.on('message', function(message) {
+        // message.content
+        var triggers = TriggerStore.getAll(),
+            content = message.content;
+
+        Object.keys(triggers).forEach(function(trigger) {
+            if (content.match(trigger)) {
+                sendMessage(triggers[trigger]);
+            }
+        });
+
         receiveMessage(message);
     });
 
@@ -56,6 +68,21 @@ function sendMessage(content) {
         });
         return;
     }
+
+    var aliases = AliasStore.getAll();
+    Object.keys(aliases).some(function(alias) {
+        if (alias === content) {
+            content = aliases[alias];
+            return true;
+        }
+
+        return false;
+    });
+
+    receiveMessage({
+        type: 'echo',
+        content: content + '\r\n'
+    });
 
     socket.emit('message', content);
 }

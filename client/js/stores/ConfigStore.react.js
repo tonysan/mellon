@@ -1,6 +1,5 @@
 var MellonDispatcher = require('../dispatcher/MellonDispatcher'),
     MellonConstants = require('../constants/MellonConstants'),
-    MessageActionCreators = require('../actions/MessageActionCreators'),
     EventEmitter = require('events').EventEmitter,
     assign = require('object-assign');
 
@@ -26,10 +25,6 @@ AliasStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
         case ActionTypes.UPDATE_CONFIG:
             config = assign(config, action.config);
-            MessageActionCreators.sendCommand({
-                command: 'update_config',
-                payload: config
-            });
             AliasStore.emitChange();
             break;
         default:
