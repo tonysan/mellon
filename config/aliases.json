@@ -14,5 +14,15 @@
   "cma": "cha moo agg",
   "liq": "look in quiver",
   "db": "draw bow",
-  "dd": "draw dirk"
+  "dd": "draw dirk",
+  "lic": "look in corpse",
+  "gaac": "get all all.corpse",
+  "gcc": "get coins all.corpse",
+  "rq": "reveal q",
+  "rt": "reveal thor",
+  "cure": "cast c 'cure light'",
+  "chant": "cast n 'enchant'",
+  "dispm": "cast n 'dispel magic'",
+  "ident": "cast n 'identify'",
+  "loot": "get all.coins all.corpse; get all.shield all.corpse; get all.sweapon all.corpse; get all.pweapon all.corpse; get all.cweapon all.corpse; get all.metal all.corpse; get all.shoes all.corpse; get all.clweapon all.corpse; get all.chain all.corpse; get all.scale all.corpse; get all.stweapon all.corpse"
 }

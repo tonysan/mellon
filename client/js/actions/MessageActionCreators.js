@@ -21,9 +21,8 @@ function setupConnection() {
             if (content.match('#client')) {
                 MellonDispatcher.dispatch({
                     type: ActionTypes.UPDATE_CHARACTER,
-                    state: content
+                    character: content
                 });
-                return;
             }
 
             if (content.match(trigger)) {
@@ -31,7 +30,9 @@ function setupConnection() {
             }
         });
 
-        receiveMessage(message);
+        if (!content.match('#client')) {
+            receiveMessage(message);
+        }
     });
 
     socket.on('update', function(updatedState) {
@@ -70,17 +71,47 @@ function sendMessage(content) {
         return;
     }
 
-    var aliases = AliasStore.getAll();
-    Object.keys(aliases).forEach(function(alias) {
-        content = content.replace(new RegExp('^' + alias), aliases[alias]);
-    });
+    // receiveMessage({
+    //     type: 'echo',
+    //     content: content + '\r\n'
+    // });
 
+    content = replaceAlias(content);
+
+    var splitMessage = content.split(';');
+
+    splitMessage.forEach(function(message) {
+        var repeatedCommand = message.match(/^#(\d+) (.+)/);
+        if (repeatedCommand) {
+            var iterations = repeatedCommand[1],
+                command = repeatedCommand[2];
+
+            for (var i = 0; i < iterations; i += 1) {
+                sendAndEcho(replaceAlias(command));
+            }
+
+            return;
+        }
+
+        sendAndEcho(replaceAlias(message));
+    });
+}
+
+function sendAndEcho(message) {
     receiveMessage({
         type: 'echo',
-        content: content + '\r\n'
+        content: message + '\r\n'
+    });
+    socket.emit('message', message);
+}
+
+function replaceAlias(content) {
+    var aliases = AliasStore.getAll();
+    Object.keys(aliases).forEach(function(alias) {
+        content = content.replace(new RegExp('^' + alias + '\\b'), aliases[alias]);
     });
 
-    socket.emit('message', content);
+    return content;
 }
 
 function receiveMessage(message) {

@@ -41,7 +41,7 @@ var xpTotals = [],
 CharacterStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
         case ActionTypes.UPDATE_CHARACTER:
-            var raw = action.state.content,
+            var raw = action.character,
                 splitRaw = raw.split('__');
 
             var neededXp = parseInt(splitRaw[3].trim(), 10),
