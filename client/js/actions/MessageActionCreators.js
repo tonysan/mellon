@@ -18,19 +18,18 @@ function setupConnection() {
             content = message.content;
 
         Object.keys(triggers).forEach(function(trigger) {
-            if (content.match('#client')) {
-                MellonDispatcher.dispatch({
-                    type: ActionTypes.UPDATE_CHARACTER,
-                    character: content
-                });
-            }
 
             if (content.match(trigger)) {
                 sendMessage(triggers[trigger]);
             }
         });
 
-        if (!content.match('#client')) {
+        if (content.match('#client')) {
+            MellonDispatcher.dispatch({
+                type: ActionTypes.UPDATE_CHARACTER,
+                character: content
+            });
+        } else {
             receiveMessage(message);
         }
     });
