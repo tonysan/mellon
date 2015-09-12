@@ -4,9 +4,11 @@ var React = require('react'),
     AliasStore = require('../stores/AliasStore.react'),
     ConfigStore = require('../stores/ConfigStore.react'),
     TriggerStore = require('../stores/TriggerStore.react'),
+    SubstitutionStore = require('../stores/SubstitutionStore.react'),
     MessageActionCreators = require('../actions/MessageActionCreators'),
     AliasActionCreators = require('../actions/AliasActionCreators'),
     TriggerActionCreators = require('../actions/TriggerActionCreators'),
+    SubstitutionActionCreators = require('../actions/SubstitutionActionCreators'),
     ConfigActionCreators = require('../actions/ConfigActionCreators'),
     ApplicationActionCreators = require('../actions/ApplicationActionCreators'),
     bootstrap = require('react-bootstrap'),
@@ -46,6 +48,7 @@ var Menu = React.createClass({
                 </Nav>
                 <Nav right>
                     <ModalInput store={AliasStore} actionCreator={AliasActionCreators} title='Aliases'/>
+                    <ModalInput store={SubstitutionStore} actionCreator={SubstitutionActionCreators} title='Substitutions'/>
                     <ModalInput store={TriggerStore} actionCreator={TriggerActionCreators} title='Triggers'/>
                     <ModalInput store={ConfigStore} actionCreator={ConfigActionCreators} title='Settings'/>
                 </Nav>

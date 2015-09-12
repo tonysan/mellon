@@ -5,6 +5,7 @@ var express = require('express'),
     aliases = require('./config/aliases'),
     triggers = require('./config/triggers'),
     config = require('./config/config'),
+    substitutions = require('./config/substitutions'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io')(server),
@@ -23,7 +24,8 @@ app.get('/', function (req, res) {
 	res.render('index', {
         aliases: JSON.stringify(aliases),
         triggers: JSON.stringify(triggers),
-        config: JSON.stringify(config)
+        config: JSON.stringify(config),
+        substitutions: JSON.stringify(substitutions)
     });
 });
 

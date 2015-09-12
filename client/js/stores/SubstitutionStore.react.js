@@ -3,10 +3,10 @@ var MellonDispatcher = require('../dispatcher/MellonDispatcher'),
     EventEmitter = require('events').EventEmitter,
     assign = require('object-assign');
 
-var triggers = Mellon.triggers,
+var substitutions = Mellon.substitutions,
     ActionTypes = MellonConstants.ActionTypes,
     CHANGE_EVENT = 'change',
-    TriggerStore = assign({}, EventEmitter.prototype, {
+    SubstituionStore = assign({}, EventEmitter.prototype, {
         emitChange: function() {
             this.emit(CHANGE_EVENT);
         },
@@ -17,19 +17,19 @@ var triggers = Mellon.triggers,
             this.removeListener(CHANGE_EVENT, callback);
         },
         getAll: function() {
-            return triggers;
+            return substitutions;
         }
     });
 
-TriggerStore.dispatchToken = MellonDispatcher.register(function(action) {
+SubstituionStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
-        case ActionTypes.UPDATE_TRIGGERS:
-            triggers = assign(triggers, action.triggers);
-            TriggerStore.emitChange();
+        case ActionTypes.UPDATE_SUBSTITUTIONS:
+            substitutions = assign(substitutions, action.substitutions);
+            SubstituionStore.emitChange();
             break;
         default:
             //noop
     }
 });
 
-module.exports = TriggerStore;
+module.exports = SubstituionStore;

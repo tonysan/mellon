@@ -2,6 +2,7 @@ var MellonDispatcher = require('../dispatcher/MellonDispatcher'),
     MellonConstants = require('../constants/MellonConstants'),
     AliasStore = require('../stores/AliasStore.react'),
     TriggerStore = require('../stores/TriggerStore.react'),
+    SubstitutionStore = require("../stores/SubstitutionStore.react"),
     utils = require('../utils/utils');
 
 var ActionTypes = MellonConstants.ActionTypes,
@@ -15,21 +16,24 @@ function setupConnection() {
     socket = io.connect();
     socket.on('message', function(message) {
         var triggers = TriggerStore.getAll(),
-            content = message.content;
+            substitutions = SubstitutionStore.getAll();
 
         Object.keys(triggers).forEach(function(trigger) {
-
-            if (content.match(trigger)) {
+            if (message.content.match(trigger)) {
                 sendMessage(triggers[trigger]);
             }
         });
 
-        if (content.match('#client')) {
+        if (message.content.match('#client')) {
             MellonDispatcher.dispatch({
                 type: ActionTypes.UPDATE_CHARACTER,
-                character: content
+                character: message.content
             });
         } else {
+            Object.keys(substitutions).forEach(function(substitution) {
+                message.content = message.content.replace(substitution, substitutions[substitution]);
+            });
+
             receiveMessage(message);
         }
     });

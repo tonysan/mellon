@@ -6,7 +6,7 @@ var MellonDispatcher = require('../dispatcher/MellonDispatcher'),
 var config = Mellon.config,
     ActionTypes = MellonConstants.ActionTypes,
     CHANGE_EVENT = 'change',
-    AliasStore = assign({}, EventEmitter.prototype, {
+    ConfigStore = assign({}, EventEmitter.prototype, {
         emitChange: function() {
             this.emit(CHANGE_EVENT);
         },
@@ -21,15 +21,15 @@ var config = Mellon.config,
         }
     });
 
-AliasStore.dispatchToken = MellonDispatcher.register(function(action) {
+ConfigStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
         case ActionTypes.UPDATE_CONFIG:
             config = assign(config, action.config);
-            AliasStore.emitChange();
+            ConfigStore.emitChange();
             break;
         default:
             //noop
     }
 });
 
-module.exports = AliasStore;
+module.exports = ConfigStore;
