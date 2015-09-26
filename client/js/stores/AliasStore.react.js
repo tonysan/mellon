@@ -24,7 +24,7 @@ var aliases = Mellon.aliases,
 AliasStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
         case ActionTypes.UPDATE_ALIASES:
-            aliases = assign(aliases, action.aliases);
+            aliases = action.aliases;
             AliasStore.emitChange();
             break;
         default:

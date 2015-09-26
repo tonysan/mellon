@@ -26,5 +26,9 @@
   "ident": "cast n 'identify'",
   "loot": "get all.coins all.corpse; get all.shield all.corpse; get all.sweapon all.corpse; get all.pweapon all.corpse; get all.cweapon all.corpse; get all.metal all.corpse; get all.shoes all.corpse; get all.clweapon all.corpse; get all.chain all.corpse; get all.scale all.corpse; get all.stweapon all.corpse",
   "kg": "knock greatgates",
-  "ue": "unlock exit"
+  "ue": "unlock exit",
+  "fgc": "get forest pack; rem mantle; wear forest; put mantle pack",
+  "ls": "look",
+  "armour": "cast n 'armour'",
+  "shroud": "cast n 'shroud'"
 }

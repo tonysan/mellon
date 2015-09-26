@@ -24,7 +24,7 @@ var triggers = Mellon.triggers,
 TriggerStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
         case ActionTypes.UPDATE_TRIGGERS:
-            triggers = assign(triggers, action.triggers);
+            triggers = action.triggers;
             TriggerStore.emitChange();
             break;
         default:

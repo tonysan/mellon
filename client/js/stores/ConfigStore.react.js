@@ -24,7 +24,7 @@ var config = Mellon.config,
 ConfigStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
         case ActionTypes.UPDATE_CONFIG:
-            config = assign(config, action.config);
+            config = action.config;
             ConfigStore.emitChange();
             break;
         default:

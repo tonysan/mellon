@@ -1,5 +1,7 @@
 {
   "Reconnecting.": "info #client__%l__%M__%X__%x__%T__%t",
   "Never forget! Try to role-play...": "info #client__%l__%M__%X__%x__%T__%t",
-  "You receive your share of experience.": "info #client__%l__%M__%X__%x__%T__%t"
+  "You receive your share of experience.": "info #client__%l__%M__%X__%x__%T__%t",
+  "Jojen dismounts from a": "lead",
+  "Jojen picks up a": "ride"
 }
