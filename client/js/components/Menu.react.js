@@ -17,7 +17,9 @@ var React = require('react'),
 var Navbar = bootstrap.Navbar,
     Nav = bootstrap.Nav,
     DropdownButton = bootstrap.DropdownButton,
-    NavItem = bootstrap.NavItem;
+    NavDropdown = bootstrap.NavDropdown,
+    NavItem = bootstrap.NavItem,
+    Input = bootstrap.Input;
 
 function getStateFromStores() {
     return ApplicationStore.getState();

@@ -24,7 +24,7 @@ var messages = [],
 MessageStore.dispatchToken = MellonDispatcher.register(function(action) {
     switch(action.type) {
         case ActionTypes.RECEIVE_MESSAGE:
-            if (messages.length > 1000) {
+            if (messages.length > 10000) {
                 messages.shift();
             }
             messages.push(action.message);
