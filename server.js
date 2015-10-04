@@ -66,6 +66,9 @@ io.on('connection', function(socket) {
             case 'update_triggers':
                 fs.writeFileSync('config/triggers.json', JSON.stringify(command.payload, null, 2), 'utf8');
             break;
+            case 'update_substitutions':
+                fs.writeFileSync('config/substitutions.json', JSON.stringify(command.payload, null, 2), 'utf8');
+            break;
             case 'update_config':
                 fs.writeFileSync('config/config.json', JSON.stringify(command.payload, null, 2), 'utf8');
                 config = JSON.parse(fs.readFileSync('config/config.json', 'utf8'));
