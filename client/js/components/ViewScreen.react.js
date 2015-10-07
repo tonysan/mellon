@@ -28,11 +28,9 @@ var ViewScreen = React.createClass({
 	render: function() {
         var messages = this.state.messages.map(getMessage);
 		return (
-			<div className='viewScreen'>
-                <div className='messageList' ref='messageList'>
-                    {messages}
-                </div>
-			</div>
+            <div className='messageList' ref='messageList'>
+                {messages}
+            </div>
 		);
 	},
     componentDidUpdate: function() {

@@ -1,41 +1,51 @@
 $systemMessageColor: #CCCCCC;
 @import 'colors';
 
+html {
+    height: 100%
+}
+
+#react {
+    height: 100%;
+}
+
 body {
+    height: 100%;
     box-sizing: border-box;
 
-    .viewScreen {
-        position: relative;
+    .mellonApp {
+        flex-direction: column;
+        display: flex;
+        height: 100%;
+    }
+
+    .messageList {
+        flex-grow: 1;
         width: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        list-style-type: none;
+        font-family: ‘Lucida Console’, Monaco, monospace;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 18px;
+        white-space: pre-wrap;
+        color: #F8F8F0;
+        background-color: #272822;
+        cursor: default;
         box-sizing: border-box;
+        padding: 0 0 0 5px;
+        margin-bottom: 0;
 
-        .messageList {
-            height: 883px;
-            width: 100%;
-            overflow-x: hidden;
-            overflow-y: scroll;
-            list-style-type: none;
-            font-family: ‘Lucida Console’, Monaco, monospace;
-            font-weight: 300;
-            font-size: 14px;
-            line-height: 18px;
-            white-space: pre-wrap;
-            color: #F8F8F0;
-            background-color: #272822;
-            cursor: default;
-            box-sizing: border-box;
-            padding: 0 0 0 5px;
-            margin-bottom: 0;
-
-            li:not(:first-child) {
-                margin-top: 5px;
-            }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
+        li:not(:first-child) {
+            margin-top: 5px;
         }
     }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
 
     @import 'menu';
     @import 'input';

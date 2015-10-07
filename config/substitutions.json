@@ -23,5 +23,17 @@
   "Hithui": "Hithui [8pm - 7am] (Mid Autumn)",
   "Foreyule": "Foreyule [7pm - 7am] (Late Autumn)",
   "Birithron": "Birithro [7pm - 7am] (Late Autumn)",
-  "hi": "Hi"
+  "hi": "Hi",
+  "leaves east": "!@#!@#[31mLEFT!@#!@#[0m !@#!@#[34m←←← EAST ←←←!@#!@#[0m",
+  "leaves west": "!@#!@#[31mLEFT!@#!@#[0m !@#!@#[34m→→→ WEST →→→!@#!@#[0m",
+  "leaves north": "!@#!@#[31mLEFT!@#!@#[0m !@#!@#[34m↑↑↑ NORTH ↑↑↑!@#!@#[0m",
+  "leaves south": "!@#!@#[31mLEFT!@#!@#[0m !@#!@#[34m↓↓↓ SOUTH ↓↓↓!@#!@#[0m",
+  "leaves up": "!@#!@#[31mLEFT!@#!@#[0m !@#!@#[34m↗↗↗ UP ↗↗↗!@#!@#[0m",
+  "leaves down": "!@#!@#[31mLEFT!@#!@#[0m !@#!@#[34m↙↙↙ DOWN ↙↙↙!@#!@#[0m",
+  "has arrived from the east": "!@#!@#[32mARRIVED!@#!@#[0m !@#!@#[34mEAST!@#!@#[0m",
+  "has arrived from the west": "!@#!@#[32mARRIVED!@#!@#[0m !@#!@#[34mWEST!@#!@#[0m",
+  "has arrived from the north": "!@#!@#[32mARRIVED!@#!@#[0m !@#!@#[34mNORTH!@#!@#[0m",
+  "has arrived from the south": "!@#!@#[32mARRIVED!@#!@#[0m !@#!@#[34mSOUTH!@#!@#[0m",
+  "has arrived from the up": "!@#!@#[32mARRIVED!@#!@#[0m !@#!@#[34mUP!@#!@#[0m",
+  "has arrived from the down": "!@#!@#[32mARRIVED!@#!@#[0m !@#!@#[34mDOWN!@#!@#[0m"
 }

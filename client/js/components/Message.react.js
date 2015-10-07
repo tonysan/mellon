@@ -21,6 +21,7 @@ var Message = React.createClass({
         );
     },
     colorizeMessage: function(text) {
+        text = text.replace(/!@#!@#/g, '');
         var splitText = text.split(ansiDict.regexp),
             ansiColorTester = /^\[(?:[\d;]+)m$/,
             colorizedText = [],
