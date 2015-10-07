@@ -41,10 +41,6 @@ body {
         li:not(:first-child) {
             margin-top: 5px;
         }
-
-        &>span {
-            display: flex;
-        }
     }
 
     ::-webkit-scrollbar {
