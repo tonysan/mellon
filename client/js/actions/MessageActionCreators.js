@@ -19,7 +19,7 @@ function setupConnection() {
             substitutions = SubstitutionStore.getAll();
 
         Object.keys(triggers).forEach(function(trigger) {
-            if (message.content.match(trigger)) {
+            if (message.content.indexOf(trigger) > -1) {
                 sendMessage(triggers[trigger]);
             }
         });
