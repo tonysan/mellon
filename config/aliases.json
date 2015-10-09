@@ -1,4 +1,6 @@
 {
+  "fr": "cast n 'fireball'",
+  "dm": "cast n 'detect magic'",
   "aa": "a;of a",
   "of": "order followers",
   "charm": "cast t 'charm'",
